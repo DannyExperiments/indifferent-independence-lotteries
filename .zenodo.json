@@ -1,0 +1,32 @@
+{
+  "title": "Indifferent independence for finite-support lotteries",
+  "upload_type": "software",
+  "publication_date": "2026-11-27",
+  "version": "1.0.0",
+  "creators": [
+    {
+      "name": "DannyExperiments"
+    }
+  ],
+  "keywords": [
+    "decision theory",
+    "incomplete preferences",
+    "indifferent independence",
+    "good expectations",
+    "negative dominance",
+    "stochastic dominance",
+    "finite-support lotteries",
+    "convex indifference classes"
+  ],
+  "description": "<p>This note answers the positive-mass formulation of Harvey Lederman&#x27;s Open Question 3.3 in Incompleteness, Independence, and Negative Dominance (arXiv:2311.08471v1). It constructs a preorder on finite-support lotteries on R^d, for each finite d, that agrees with product order on sure outcomes and satisfies Good Expectations, Negative Dominance, Stochastic Dominance and Indifferent Independence. The theorem uses the positive-mass strict coupling condition in the pinned catalog. Lederman’s generalized lottery definition allows zero weights; those matched atoms are deleted before checking strictness.</p><p>For each vector mean, take the convex hull of the good lotteries with that mean, where good means having totally ordered support. Use these convex families as indifference classes, and close their identifications and weak stochastic dominance under transitivity. A dominating coupling preserving the vector mean is the identity in law. The resulting nontrivial indifference classes stay convex, giving Indifferent Independence.</p><p>The proof extends Lederman&#x27;s earlier three-axiom construction and uses the support-extrema idea in his Lemma 3.1. For a strict chain, support extrema bound the means of its first and last changed class. Couplings lift these bounds to the original endpoints. If the intermediate means coincide, a strict outer comparison or a strict support extreme still yields a strictly ordered cross-support pair. The cross-shaped example comes from Lederman&#x27;s discussion. A second same-mean example shows actual incompleteness.</p><p>The release includes the manuscript, TeX, bibliography, citation metadata, repository checksum ledger and evidence ZIP. The standard-library replay generates a rational-grid relation on 567 lotteries and checks all 83,936 represented strict comparisons. The rotating plot and offline explorer show the convex mixtures and the incomparable antidiagonal example. Continuity and unrestricted Independence are separate compatibility questions. External peer review and formal verification are pending.</p><p>ChatGPT Astra 6.2 (OpenAI) generated the recovered proof under human direction. OpenAI Codex independently reviewed the mathematics. GPT-6.2 Sol (OpenAI) checked primary sources and prepared the manuscript, exact replay and illustration. DannyExperiments is the project citation identity.</p>",
+  "access_right": "open",
+  "license": "other-closed",
+  "notes": "All rights reserved. Publicly downloadable files are supplied without a repository-wide reuse license.",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/DannyExperiments/indifferent-independence-lotteries/releases/tag/v1.0.0",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}

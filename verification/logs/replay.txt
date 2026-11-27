@@ -1,0 +1,3 @@
+567 lotteries; convex additions: 1; strict coupling moves: 48810.
+All 83936 represented strict comparisons have a support witness.
+Cross-shaped mixture is indifferent to the zero Dirac; antidiagonal lottery is incomparable.

@@ -1,0 +1,81 @@
+\documentclass[11pt,a4paper]{amsart}
+\usepackage[hmargin=.83in,vmargin=.72in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Indifferent independence for finite-support lotteries}}
+\urlstyle{same}
+\setlength{\emergencystretch}{2em}
+\linespread{0.96}
+\DeclareMathSizes{8}{8}{8}{8}
+\DeclareMathSizes{9}{9}{8}{8}
+\DeclareMathSizes{10.95}{10.95}{8}{8}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\R}{\mathbb R}
+\newcommand{\supp}{\operatorname{supp}}
+\title[Indifferent independence for lotteries]{Indifferent independence for finite-support lotteries}
+\date{}
+\begin{document}
+\begin{abstract}
+Lederman asks whether Indifferent Independence is compatible with Good Expectations, Negative Dominance and Stochastic Dominance. We construct a preorder satisfying all four on finite-support lotteries over $\R^d$ for every finite $d$, extending the product order on sure outcomes. Stochastic Dominance uses the positive-mass strictness condition in the catalog question. Take the convex hull of each same-mean family of good lotteries as an indifference class, then close these identifications together with dominance under transitivity. Support extrema ensure that every resulting strict comparison retains a strict cross-support witness.
+\end{abstract}
+\maketitle
+
+\section{The question and the dominance convention}
+A lottery is a probability measure with finite support on $\R^d$. Write $x\ge y$ for coordinatewise weak inequality, and $x>y$ when $x\ge y$ and $x\ne y$. A good lottery has a totally ordered support. Let $m(f)$ denote the vector mean, and $\delta_x$ the probability-one lottery at $x$.
+
+Lederman's Open Question~3.3 asks whether Indifferent Independence can be added to three given axioms \cite[\S3, p.~26]{lederman}. We seek a reflexive transitive relation $\succeq$ whose restriction to sure outcomes is exactly the product order. Write $\sim$ for mutual $\succeq$ and $\succ$ for the strict part. The four axioms are as follows.
+\begin{itemize}
+\item Good Expectations: $f\sim\delta_{m(f)}$ for every good $f$.
+\item Negative Dominance: if $f\succ g$, some $x\in\supp f$ and $y\in\supp g$ have $x>y$.
+\item Stochastic Dominance: if a coupling $(X,Y)$ of $f,g$ has $X\ge Y$ almost surely and $\Pr(X\ne Y)>0$, then $f\succ g$.
+\item Indifferent Independence: if $f\sim g$ and $g\sim h$, then $\alpha f+(1-\alpha)h\sim\alpha g+(1-\alpha)h$ for every $0<\alpha<1$.
+\end{itemize}
+This uses the positive-mass form of Stochastic Dominance from the catalog statement. Definition~3.2 of \cite{lederman} describes matched generalized lottery atoms with weights in $[0,1]$. Removing zero-weight atoms before testing for a strict pair gives the coupling condition above. Allowing a strict pair of weight zero to count would make every lottery strictly dominate itself by adding such a pair.
+
+For completeness, matched atoms of positive weight give a coupling by summation. Conversely a finite coupling can be represented by matched atoms of globally distinct positive weights. Split each nonzero coupling cell into two positive parts, avoiding the finite set of values that would duplicate an already chosen part or make the two new parts equal. Use each part at both endpoints of that cell. The matched sets realize the marginals and have a strict pair exactly when a strict cell has positive mass.
+
+\section{Construction and indifference classes}
+\begin{theorem}
+For every finite $d\ge1$ there is a preorder on finite-support lotteries on $\R^d$ that restricts to the product order on sure outcomes and satisfies all four axioms above.
+\end{theorem}
+
+For each $m\in\R^d$ let $C_m$ be the convex hull of the good lotteries with mean $m$, using finite mixtures. It contains $\delta_m$, and every member has mean $m$. Define $f\succeq g$ if there is a finite chain from $g$ to $f$ using these two kinds of step:
+\begin{enumerate}
+\item Move to a weakly stochastically dominating lottery, using a coupling with $X\ge Y$ almost surely.
+\item Move between two members of the same $C_m$ in either direction.
+\end{enumerate}
+The empty chain and concatenation give reflexivity and transitivity. At every step the mean is coordinatewise nondecreasing. A dominating coupling with unchanged vector mean has $X-Y=0$ almost surely, because each coordinate of the difference is nonnegative with expectation zero. Thus a same-mean chain only makes identifications within a single $C_m$ or leaves the lottery unchanged. The indifference classes are the sets $C_m$ and the singleton classes of lotteries outside their union. For comparable lotteries, the comparison is strict exactly when their means differ.
+
+Good Expectations holds by construction. A dominating coupling with a strict pair of positive mass changes some mean coordinate and gives strict preference. The mean property and the dominance of ordered pairs of Dirac laws give exactly the required sure-outcome order. Indifferent Independence follows because all indifference classes are convex.
+
+\section{Strict cross-support witnesses}
+\begin{lemma}
+Every $H\in C_m$ has support points $x\ge m\ge y$. If $H\ne\delta_m$, the points can be chosen so that $x>m>y$.
+\end{lemma}
+\begin{proof}
+Take the upper and lower endpoints of any positive-weight good component in a finite mixture representing $H$. Both lie in its support and bound the component's mean $m$, as in Lederman's Lemma~3.1 \cite{lederman}. If $H$ is not a Dirac law, some positive-weight component is non-Dirac. Its distinct extreme points cannot equal its mean: a coordinate where they differ has a strictly intermediate mean. Those two extremes give the strict inequalities.
+\end{proof}
+
+Suppose $f\succ g$ and choose a generating chain. Consecutive stochastic steps combine by gluing their couplings along shared marginals. If there are only stochastic steps, the resulting coupling has a strict pair of positive mass because the total mean changes. That pair witnesses Negative Dominance.
+
+Otherwise let $H_g$ be the lottery before the first identification step, and $H_f$ the lottery after the last. Set $m_g=m(H_g)$ and $m_f=m(H_f)$. The outer steps give weak dominating couplings from $g$ to $H_g$ and from $H_f$ to $f$, allowing identity couplings. Pick support points $y_0\le m_g$ in $H_g$ and $x_0\ge m_f$ in $H_f$. Each such atom has positive probability, so the outer couplings give $y\in\supp g$ and $x\in\supp f$ with
+\[
+                 y\le y_0\le m_g\le m_f\le x_0\le x .
+\]
+If $m_f\ne m_g$, this is a strict witness. When they coincide, at least one outer mean comparison is strict since $m(f)\ne m(g)$. If the final outer comparison is strict and $H_f$ is non-Dirac, choose $x_0>m_f$ by the lemma. If $H_f=\delta_{m_f}$, a strict final mean comparison forces some atom $x>m_f$ in the outer coupling. The reflected argument gives $y<m_g$ when the initial outer comparison is strict. In each case $x>y$. This proves Negative Dominance and the theorem.
+
+\section{Examples and relation to the earlier construction}
+Lederman discusses the symmetric horizontal and vertical lotteries at mean $0$ immediately before Question~3.3 \cite[p.~26]{lederman}. Each is good, although their equal mixture has incomparable outcomes. The mixture lies in $C_0$ and is therefore indifferent to $\delta_0$. The equal lottery on $(1,-1),(-1,1)$ is outside $C_0$. Any positive-weight component of a representation would be supported on just these incomparable points, so could be good only if it were a point mass, which cannot have mean $0$. This lottery is incomparable with $\delta_0$: by the equal-mean characterization neither direction can hold.
+
+The construction adds convex closure within each mean class to the three-axiom construction of Lederman's Proposition~3.1. The result concerns within-class mixtures. Continuity and unrestricted Independence are separate compatibility questions.
+
+\section*{Replay and technical disclosure}
+Exact finite diagnostics check generating comparisons and strict support witnesses on a rational lattice, together with the worked mixtures. The argument above proves the result for all finite-support lotteries. External peer review and formal verification are pending.
+
+ChatGPT Astra 6.2 (OpenAI) generated the recovered proof under human direction. OpenAI Codex independently reviewed the mathematics. GPT-6.2 Sol (OpenAI) checked primary sources and prepared the manuscript, exact replay and illustration. DannyExperiments is the project citation identity.
+
+\bibliographystyle{amsplain}
+\bibliography{references}
+\end{document}

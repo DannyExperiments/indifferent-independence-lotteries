@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>When mixtures tie</title>
+<style>
+:root{color-scheme:dark;--bg:#101b32;--panel:#162640;--edge:#415c80;--text:#f7faff;--muted:#c2cee1;--mint:#6aead7;--amber:#ffd086;--blue:#adbffb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,sans-serif}
+main{max-width:660px;margin:auto;padding:22px 16px 32px}
+h1{font-size:clamp(1.7rem,5.2vw,2.6rem);line-height:1.12;margin:0}
+header p,details{color:var(--muted)}header p{margin:.45rem 0 1rem}
+fieldset{border:0;margin:.3rem 0 .7rem;padding:0;min-width:0;display:flex;flex-wrap:wrap;gap:7px}
+legend,label{color:var(--muted)}legend{margin-bottom:4px}
+.controls{display:flex;gap:8px;align-items:center;margin:0 0 .65rem}
+button{min-width:48px;min-height:46px;padding:7px 10px;border:1px solid var(--edge);border-radius:9px;background:#233958;color:var(--text);font:inherit;font-weight:660;cursor:pointer}
+button[aria-pressed=true]{background:var(--mint);color:var(--bg)}
+input{width:100%;accent-color:var(--mint);min-height:44px}
+button:focus-visible,input:focus-visible,#chart:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.diagram,.numbers{background:var(--panel);border:1px solid var(--edge);border-radius:14px;overflow:hidden}
+#chart{display:block;width:100%;height:auto;touch-action:pan-y;cursor:grab}
+#chart:active{cursor:grabbing}#chart:focus-visible{outline-offset:-5px}
+text{text-anchor:middle;font-family:system-ui,sans-serif;fill:var(--text);font-size:16px}
+.numbers{margin-top:.65rem;padding:.65rem .75rem}.numbers p{margin:.18rem 0}
+#status{font-size:1.12rem;font-weight:720;color:var(--mint)}
+details{margin-top:1rem}summary{cursor:pointer;color:var(--text);font-weight:700}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>When mixtures tie</h1>
+<p>Every displayed lottery has mean (0, 0). The construction treats a lottery as indifferent to the sure mean when it can be built from good lotteries with that mean.</p>
+</header>
+<fieldset>
+<legend>Lottery</legend>
+<button id="horizontal" aria-pressed="false">Horizontal</button>
+<button id="vertical" aria-pressed="false">Vertical</button>
+<button id="mixture" aria-pressed="true">Mixture</button>
+<button id="diagonal" aria-pressed="false">Antidiagonal</button>
+</fieldset>
+<label for="weight">Horizontal share in the mixture <output id="share">1/2</output></label>
+<div class="controls"><input type="range" id="weight" min="0" max="8" value="4" step="1"></div>
+<div class="diagram">
+<svg id="chart" viewBox="0 0 460 290" role="img" tabindex="0" aria-labelledby="plotTitle plotDesc">
+<title id="plotTitle">Outcome support and positive probability masses</title>
+<desc id="plotDesc">Outcomes lie on a rotated plane. The vertical stem heights encode their individual probabilities. The white diamond marks the common vector mean at zero.</desc>
+<g id="plot"></g>
+</svg>
+</div>
+<div class="numbers" aria-live="polite" aria-atomic="true">
+<p id="atoms"></p>
+<p id="status"></p>
+<p id="explain"></p>
+</div>
+<details>
+<summary>Which same-mean mixtures are allowed?</summary>
+<p>Each horizontal or vertical outcome pair is comparable coordinatewise, so each of those lotteries is good. Every mixture of them is in the same convex indifference class. The antidiagonal's two outcomes are incomparable. There is no good mean-zero lottery supported on just those two outcomes, so the antidiagonal stays outside the sure mean's class.</p>
+<p>Drag sideways or use the arrow keys with the plot focused. Any strict stochastic comparison in the proof uses a positive-mass strict pair.</p>
+</details>
+</main>
+<script>
+"use strict";
+const byId=id=>document.getElementById(id), chart=byId("chart"),layer=byId("plot"),slider=byId("weight");
+const selectionIds=["horizontal","vertical","mixture","diagonal"];
+const horizontal=[[-1,0],[1,0]],vertical=[[0,-1],[0,1]],diagonal=[[-1,1],[1,-1]];
+let kind="mixture",angle=.6,drag=null;
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const fraction=(n,d)=>{const g=gcd(n,d);return d===g?String(n/g):n/g+"/"+d/g;};
+const coords=points=>points.map(p=>p.join(",")).join(" ");
+function render(){
+  const w=Number(slider.value);
+  byId("share").textContent=fraction(w,8);
+  for(const id of selectionIds)byId(id).setAttribute("aria-pressed",id===kind);
+  const atoms=(kind==="horizontal"?horizontal.map(p=>[...p,8]):
+               kind==="vertical"?vertical.map(p=>[...p,8]):
+               kind==="diagonal"?diagonal.map(p=>[...p,8]):
+               [...horizontal.map(p=>[...p,w]),...vertical.map(p=>[...p,8-w])]).filter(p=>p[2]>0);
+  byId("atoms").textContent=atoms.length+" positive-mass outcomes. Mean (0, 0).";
+  byId("status").textContent=kind==="diagonal"?"Incomparable with the sure mean":"Indifferent to the sure mean";
+  byId("explain").textContent=kind==="diagonal"?"No good mean-zero component fits this support.":kind==="mixture"?"Horizontal atoms have weight "+fraction(w,16)+" each and vertical atoms "+fraction(8-w,16)+" each.":"Each atom has weight 1/2.";
+  const projection=(x,y,z=0)=>[230+98*(x*Math.cos(angle)-y*Math.sin(angle)),160+40*(x*Math.sin(angle)+y*Math.cos(angle))-124*z];
+  const line=(a,b,color,wide=1)=>'<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="'+color+'" stroke-width="'+wide+'"/>';
+  const box=[projection(-1.22,-1.22),projection(1.22,-1.22),projection(1.22,1.22),projection(-1.22,1.22)];
+  let shape='<polygon points="'+coords(box)+'" fill="#1e3555" stroke="#466080"/>';
+  for(const a of [-1,0,1]){
+    shape+=line(projection(-1.22,a),projection(1.22,a),"#475f81",a===0?2:1);
+    shape+=line(projection(a,-1.22),projection(a,1.22),"#475f81",a===0?2:1);
+  }
+  shape+='<polygon points="224,160 230,154 236,160 230,166" fill="#f7faff"/>';
+  for(const [x,y,n] of [...atoms].sort((a,b)=>projection(a[0],a[1])[1]-projection(b[0],b[1])[1])){
+    const base=projection(x,y),top=projection(x,y,n/16),color=y===0?"#ffd086":x===0?"#adbffb":"#6aead7";
+    shape+=line(base,top,color,6);
+    shape+='<circle cx="'+top[0]+'" cy="'+top[1]+'" r="5" fill="'+color+'"/>';
+    shape+='<text x="'+base[0]+'" y="'+(base[1]+18)+'">('+x+', '+y+')</text>';
+  }
+  layer.innerHTML=shape;
+}
+for(const id of selectionIds)byId(id).addEventListener("click",()=>{kind=id;render();});
+slider.addEventListener("input",()=>{kind="mixture";render();});
+chart.addEventListener("pointerdown",e=>{drag=e.clientX;chart.setPointerCapture(e.pointerId);});
+chart.addEventListener("pointermove",e=>{if(drag!==null){angle+=(e.clientX-drag)/85;drag=e.clientX;render();}});
+chart.addEventListener("lostpointercapture",()=>{drag=null;});
+chart.addEventListener("keydown",e=>{
+  if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;
+  e.preventDefault();angle+=e.key==="ArrowLeft"?-.12:.12;render();
+});
+render();
+</script>
+</body>
+</html>

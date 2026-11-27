@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Cite this version of the research release."
+type: software
+title: "Indifferent independence for finite-support lotteries"
+authors:
+  - name: "DannyExperiments"
+version: "1.0.0"
+date-released: 2026-11-27
+doi: "10.5281/zenodo.24572917"
+url: "https://doi.org/10.5281/zenodo.24572917"
+repository-code: "https://github.com/DannyExperiments/indifferent-independence-lotteries"
+keywords:
+  - "decision theory"
+  - "incomplete preferences"
+  - "indifferent independence"
+  - "good expectations"
+  - "negative dominance"
+  - "stochastic dominance"
+  - "finite-support lotteries"
+  - "convex indifference classes"
+preferred-citation:
+  type: software
+  title: "Indifferent independence for finite-support lotteries"
+  authors:
+    - name: "DannyExperiments"
+  version: "1.0.0"
+  date-released: 2026-11-27
+  doi: "10.5281/zenodo.24572917"
+  url: "https://doi.org/10.5281/zenodo.24572917"
+  repository-code: "https://github.com/DannyExperiments/indifferent-independence-lotteries"
