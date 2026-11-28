@@ -1,5 +1,6 @@
 # Indifferent independence for finite-support lotteries
 
+[![Lean · equality in a coupling](https://github.com/DannyExperiments/indifferent-independence-lotteries/actions/workflows/lean.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/indifferent-independence-lotteries/actions/workflows/lean.yml)
 [![Repository verification](https://github.com/DannyExperiments/indifferent-independence-lotteries/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/indifferent-independence-lotteries/actions/workflows/verify.yml) [![Replay verification](https://github.com/DannyExperiments/indifferent-independence-lotteries/actions/workflows/replay.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/indifferent-independence-lotteries/actions/workflows/replay.yml) [![PDF build](https://github.com/DannyExperiments/indifferent-independence-lotteries/actions/workflows/pdf.yml/badge.svg?branch=main)](https://github.com/DannyExperiments/indifferent-independence-lotteries/actions/workflows/pdf.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24572917.svg)](https://doi.org/10.5281/zenodo.24572917)
 
@@ -24,3 +25,7 @@ The construction extends Lederman’s Proposition 3.1 by taking convex hulls wit
 [Mathematical audit](audits/public_safe_reports/MATHEMATICAL_AUDIT.md) · [Literature audit](audits/public_safe_reports/LITERATURE_AUDIT.md) · [Scope](CLAIM_SCOPE_AND_LIMITATIONS.md) · [AI disclosure](AI_DISCLOSURE.md) · [Status](STATUS.md)
 
 [Release v1.0.0](https://github.com/DannyExperiments/indifferent-independence-lotteries/releases/tag/v1.0.0) · [Version DOI](https://doi.org/10.5281/zenodo.24572917) · [Citation](CITATION.cff)
+
+## Lean verification
+
+For a finite coupling over a linearly ordered commutative ring, coordinatewise domination on positive-mass atoms and equality of all weighted coordinate means force the paired outcomes to agree at every positive-mass atom. The certificate handles zero weights and arbitrary coordinate index sets. The construction of the lottery order and the proof of compatibility of the four axioms remain in the paper. [Lean source and replay](formalization/README.md)
